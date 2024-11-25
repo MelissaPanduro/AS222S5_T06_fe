@@ -1,0 +1,12 @@
+FROM openjdk:17
+WORKDIR /app
+COPY target/*.jar app.jar
+
+
+ENV DATABASE_USERNAME ${DATABASE_USERNAME}
+ENV DATABASE_PASSWORD ${DATABASE_PASSWORD}
+
+
+
+EXPOSE 8085
+ENTRYPOINT ["java", "-jar", "app.jar"]
