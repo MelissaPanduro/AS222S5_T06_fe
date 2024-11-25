@@ -4,7 +4,7 @@ services:
   app:
     image: melissapanduro/front_docker
     ports:
-      - "8085:8085"
+      - "4200:4200"
     environment:
       DATABASE_USERNAME: ${DOCKER_USERNAME}
       DATABASE_PASSWORD: ${DOCKER_PASSWORD}
