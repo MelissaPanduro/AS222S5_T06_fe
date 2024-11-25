@@ -1,12 +1,17 @@
-FROM openjdk:17
+FROM node:14
+
+RUN mkdir -p /app
+
 WORKDIR /app
-COPY target/*.jar app.jar
 
+COPY package*.json /app
 
-ENV DOCKER_USERNAME ${DOCKER_USERNAME}
-ENV DOCKER_PASSWORD ${DOCKER_PASSWORD}
+RUN npm install
 
+COPY . /app
 
+RUN npm run build --prod
 
-EXPOSE 8085
-ENTRYPOINT ["java", "-jar", "app.jar"]
+EXPOSE 4200
+
+ENTRYPOINT ["npm", "start"]
