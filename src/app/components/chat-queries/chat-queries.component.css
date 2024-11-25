@@ -1,148 +1,97 @@
-/* Global */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a; /* Fondo negro */
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden; /* Elimina barras de desplazamiento globales */
+/* Contenedor del chat con desplazamiento */
+.chat-box-container {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px); /* Ajuste de altura para evitar que ocupe toda la pantalla */
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+/* Alineación de los globos de chat */
+.d-flex.align-items-start {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: flex-start; /* De forma predeterminada, se alinean a la izquierda */
+}
+
+.d-flex.align-items-start.user {
+  justify-content: flex-end; /* Mensaje del usuario alineado a la derecha */
+}
+
+.d-flex.align-items-start.bot {
+  justify-content: flex-start; /* Respuesta del bot alineada a la izquierda */
+}
+
+/* Mensajes del usuario (derecha) */
+.bg-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 70%; /* Ajusta el tamaño */
+  display: inline-block;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: auto; /* Esto mueve el globo a la derecha */
+}
+
+/* Mensajes del bot (izquierda) */
+.bg-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 70%; /* Ajusta el tamaño */
+  display: inline-block;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-right: auto; /* Esto mueve el globo a la izquierda */
+}
+
+/* Estilo para los iconos de usuario y bot */
+.fas.fa-user-circle,
+.fas.fa-robot {
+  font-size: 30px;
+  color: #ffffff;
+}
+
+/* Ajuste de los contenedores para los mensajes */
+.d-flex.align-items-start .me-3 {
+  margin-right: 10px;
+}
+
+.d-flex.align-items-start .ms-3 {
+  margin-left: 10px;
+}
+
+/* Asegúrate de que la entrada de texto no se superponga */
+.input-group {
+  margin-top: 10px;
+}
+
+.input-group input {
+  border-radius: 20px; /* Bordes redondeados */
+}
+
+.input-group button {
+  border-radius: 20px; /* Bordes redondeados */
+}
+
+/* Animación de desvanecimiento para nuevos mensajes */
+.chat-box-container .bg-primary,
+.chat-box-container .bg-secondary {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Animación de aparición suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* Contenedor principal del chat */
-  .chat-container {
-    width: 550px;  /* Menos ancho para hacerlo más vertical */
-    height: calc(100vh - 30px);  /* Altura con margen superior e inferior */
-    background-color: #f8f0fd; /* Fondo claro */
-    border-radius: 20px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    position: fixed;  /* Lo fija al lado derecho */
-    right: 40px;  /* Separación del borde derecho */
-    top: 15px;  /* Separación de la parte superior */
-    bottom: 15px; /* Separación de la parte inferior */
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Cabecera del chat */
-  .chat-header {
-    background-color: #b784e3;
-    color: white;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .chat-header h1 {
-    margin: 0;
-    font-size: 18px;
-  }
-  
-  .chat-header i {
-    margin-right: 10px;
-  }
-  
-  /* Área de chat */
-  .chat-box {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-  }
-  
-  .chat-box::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .chat-box::-webkit-scrollbar-thumb {
-    background-color: #d3d3d3;
-    border-radius: 3px;
-  }
-  
-  /* Grupos de mensajes */
-  .chat-message-group {
-    margin-bottom: 20px;
-  }
-  
-  .user-message {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-  
-  .bot-message {
-    display: flex;
-    align-items: flex-start;
-  }
-  
-  .user-message p,
-  .bot-message p {
-    background-color: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-    max-width: 80%;
-    font-size: 14px;
-    color: #333;
-    word-wrap: break-word;
-  }
-  
-  .user-message {
-    justify-content: flex-end;
-  }
-  
-  .bot-message {
-    justify-content: flex-start;
-  }
-  
-  .user-message p {
-    background-color: #4caf50; /* Mensaje del usuario en verde */
-    color: white;
-  }
-  
-  .bot-message p {
-    background-color: #b784e3; /* Mensaje del bot en morado */
-    color: white;
-  }
-  
-  /* Icono de editar */
-  .edit-icon {
-    margin-left: 10px;
-    color: #b784e3;
-    cursor: pointer;
-  }
-  
-  /* Entrada de texto del usuario */
-  .chat-input-container {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #e6e6e6;
-    background-color: #fff;
-  }
-  
-  .chat-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    background-color: #f3f3f3;
-  }
-  
-  .chat-send-btn {
-    background-color: #b784e3;
-    border: none;
-    color: white;
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .chat-send-btn i {
-    font-size: 16px;
-  }
-  
+}
