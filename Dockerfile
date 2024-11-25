@@ -1,17 +1,12 @@
-FROM node:14
-
-RUN mkdir -p /app
-
+FROM openjdk:17
 WORKDIR /app
+COPY target/*.jar app.jar
 
-COPY package*.json /app
 
-RUN npm install
+ENV DATABASE_USERNAME ${DATABASE_USERNAME}
+ENV DATABASE_PASSWORD ${DATABASE_PASSWORD}
 
-COPY . /app
 
-RUN npm run build --prod
 
 EXPOSE 4200
-
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
