@@ -33,6 +33,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -48,6 +54,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -57,12 +69,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          
           "options": {
             "host": "0.0.0.0",
-            "port": 4200         //editar//
+            "port": 4200        
           },
-          
           "configurations": {
             "production": {
               "buildTarget": "chatbot-frontend:build:production"

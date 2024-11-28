@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    //apigpt_fe: 'https://expert-sniffle-x74wp754r4vfw66-8085.app.github.dev/api'
-    chatbot_be: '${API_BACKEND}'
+    chatbot_be: 'https://bug-free-dollop-5g49vvr6xrvj2vpp5-8085.app.github.dev/api/chatbot/responses'
+    //chatbot_be: '${API_BACKEND}'
   };
   
   /*
