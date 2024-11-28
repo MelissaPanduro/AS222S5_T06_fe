@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    chatbot_be: 'https://bug-free-dollop-5g49vvr6xrvj2vpp5-8085.app.github.dev/api/chatbot/responses'
-    //chatbot_be: '${API_BACKEND}'
+    //chatbot_be: 'https://bug-free-dollop-5g49vvr6xrvj2vpp5-8085.app.github.dev/api/chatbot/responses'
+    chatbot_be: '${API_BACKEND}'
   };
   
   /*
