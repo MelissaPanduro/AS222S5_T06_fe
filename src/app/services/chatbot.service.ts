@@ -4,13 +4,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ChatQuery } from '../models/chat-query';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatbotService {
-  private apiUrl = 'https://turbo-journey-g9gg6qgggq9cww6j-8080.app.github.dev/api/chatbot/responses';
-
+  private apiUrl: string = environment.chatbot_be;
   constructor(private http: HttpClient) {}
 
   // Crear una nueva consulta
