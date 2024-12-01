@@ -6,3 +6,4 @@ export const routes: Routes = [
 { path: '', component: ChatQueriesComponent },
   // Agrega más rutas si es necesario
 ];
+

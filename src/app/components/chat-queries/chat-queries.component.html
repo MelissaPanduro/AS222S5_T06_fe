@@ -1,111 +1,72 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<div class="chat-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>List Chat</h2>
+    <ul>
+      <li
+        *ngFor="let query of queries"
+        (click)="startEditing(query)"
+        [class.active]="query.id === editingQueryId"
+      >
+        {{ query.query }}
+      </li>
+    </ul>
+  </div>
 
-<div class="d-flex h-100">
-  <!-- Barra lateral -->
-  <aside class="sidebar bg-dark text-white d-flex flex-column justify-content-between p-3">
-    <div>
-      <h2 class="text-center fw-bold mb-4">IA</h2>
-      <nav>
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white active">
-              <i class="fas fa-comments me-2"></i> Chats
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-              <i class="fas fa-search me-2"></i> Search
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-              <i class="fas fa-cogs me-2"></i> Manage Plans
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-              <i class="fas fa-info-circle me-2"></i> Updates
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-              <i class="fas fa-cog me-2"></i> Settings
-            </a>
-          </li>
-        </ul>
-      </nav>
+  <!-- Chat Section -->
+  <div class="chat-section">
+    <!-- Header -->
+    <div class="header">
+      <h3>Ask me anything</h3>
     </div>
-    <div class="mt-4">
-      <div class="d-flex align-items-center mb-3">
-        <img
-          src="https://via.placeholder.com/50"
-          alt="Profile"
-          class="rounded-circle me-3"
-          style="width: 50px; height: 50px;"
-        />
-        <div>
-          <h6 class="mb-0">realthemes</h6>
-          <small class="text-muted">Free</small>
-        </div>
-      </div>
-      <button class="btn btn-primary w-100">View Plans</button>
-    </div>
-  </aside>
 
-  <!-- Contenedor principal -->
-  <main class="flex-fill bg-light d-flex flex-column">
-    <!-- Encabezado -->
-    <header class="d-flex justify-content-between align-items-center p-3 border-bottom bg-white">
-      <h3 class="fw-bold"><i class="fas fa-robot me-2"></i> ChatBot </h3>
-      <button class="btn btn-outline-secondary">Chat History</button>
-    </header>
-
-    <!-- Sección de chat -->
-    <section class="d-flex flex-column h-100">
-      <div class="chat-box-container flex-fill">
-        <div *ngFor="let query of queries" class="mb-3">
-          <!-- Mensaje del usuario (Pregunta) -->
-          <div class="d-flex align-items-start user" *ngIf="query.query">
-            <div class="me-3">
-              <i class="fas fa-user-circle fa-2x text-primary"></i>
-            </div>
-            <div class="bg-primary text-white p-3 rounded shadow-sm">
-              <p class="mb-0">{{ query.query }}</p>
-            </div>
-          </div>
-          
-          <!-- Mensaje del bot (Respuesta) -->
-          <div class="d-flex align-items-start bot" *ngIf="query.response">
-            <div class="ms-3">
-              <i class="fas fa-robot fa-2x text-secondary"></i>
-            </div>
-            <div class="bg-secondary text-white p-3 rounded shadow-sm">
-              <p class="mb-0">{{ query.response }}</p>
-            </div>
-            <div class="ms-3">
-              <i class="fas fa-user-circle fa-2x text-primary"></i> <!-- Ícono de usuario alineado con la respuesta -->
-            </div>
+    <!-- Messages -->
+    <div class="chat-box">
+      <div *ngFor="let query of queries">
+        <!-- User Message -->
+        <div class="message user d-flex align-items-center justify-content-end" *ngIf="query.query">
+          <div class="bubble me-2">{{ query.query }}</div>
+          <div class="actions d-flex">
+            <!-- Edit Button -->
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              (click)="startEditing(query)"
+              title="Edit"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <!-- Delete Button -->
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="deleteQuery(query)"
+              title="Delete"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
           </div>
         </div>
-      </div>
-      
-      <!-- Entrada de texto -->
-      <div class="border-top bg-white p-3">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="newQuery.query"
-            placeholder="Escribe tu mensaje..."
-          />
-          <button class="btn btn-primary" (click)="addOrUpdateQuery()">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+
+        <!-- Bot Message -->
+        <div class="message bot" *ngIf="query.response">
+          <div class="bubble">{{ query.response }}</div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section d-flex">
+      <input
+        [(ngModel)]="newQuery.query"
+        type="text"
+        placeholder="Tu consulta es..."
+        class="form-control me-2"
+      />
+      <button (click)="submitQuery()" class="btn btn-primary">
+        {{ editingQueryId ? 'Actualizar' : 'Enviar' }}
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
 </div>
 
 

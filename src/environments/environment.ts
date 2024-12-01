@@ -2,11 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-    production: false,
+//export const environment = {
+   // production: false,
     //chatbot_be: 'https://bug-free-dollop-5g49vvr6xrvj2vpp5-8085.app.github.dev/api/chatbot/responses'
-    chatbot_be: '${API_BACKEND}'
-  };
+   // chatbot_be: '${API_BACKEND}'
+  //};
   
 
   /*

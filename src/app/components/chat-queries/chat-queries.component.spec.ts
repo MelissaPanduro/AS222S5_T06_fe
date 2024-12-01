@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChatQueriesComponent } from './chat-queries.component';
 
 describe('ChatQueriesComponent', () => {
@@ -21,3 +20,4 @@ describe('ChatQueriesComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -27,22 +27,64 @@ export class ChatQueriesComponent implements OnInit {
 
     loadQueries(): void {
         this.chatbotService.getQueries().subscribe({
-          next: (data) => {
-            if (Array.isArray(data)) {
-              this.queries = data;  // Aquí data debe ser un array de objetos ChatQuery sin comillas escapadas
-              this.errorMessage = null;
-            } else {
-              this.setError('Error al cargar las consultas');
-            }
-          },
-          error: () => {
-            this.setError('Error al cargar las consultas');
-          }
+            next: (data) => {
+                if (Array.isArray(data)) {
+                    this.queries = data.map((item: any, index: number) => ({
+                        id: item.id || index + 1, // Asigna un ID único si no está presente
+                        query: item.query || '',
+                        response: item.response || '',
+                    }));
+                    this.errorMessage = null;
+                } else {
+                    this.setError('Error al cargar las consultas');
+                }
+            },
+            error: () => {
+                this.setError('Error al cargar las consultas');
+            },
         });
-      }
-      
-      
+    }
 
+    
+    startEditing(query: ChatQuery): void {
+        this.newQuery = { ...query };  // Carga la consulta en el formulario
+        this.editingQueryId = query.id || null;  // Establece el ID de edición
+    }
+    
+    submitQuery(): void {
+        if (!this.newQuery.query.trim()) {
+            this.setError('Por favor, ingresa una consulta válida.');
+            return;
+        }
+    
+        // Si estamos editando, usamos el id correcto en la actualización
+        if (this.editingQueryId !== null) {
+            this.newQuery.id = this.editingQueryId; // Asegúrate de que el id esté presente
+        }
+    
+        const action = this.editingQueryId
+            ? this.chatbotService.updateQuery(this.editingQueryId, this.newQuery)
+            : this.chatbotService.createQuery(this.newQuery);
+    
+        console.log('Datos enviados:', this.newQuery); // Verifica los datos
+        console.log('Endpoint:', action); // Verifica la URL
+    
+        action.subscribe({
+            next: () => {
+                this.loadQueries();
+                this.resetForm();
+                this.setSuccess(this.editingQueryId ? 'Consulta actualizada.' : 'Consulta creada.');
+            },
+            error: (error) => {
+                console.error('Error del servidor:', error); // Muestra detalles del error
+                this.setError('Ocurrió un error durante la operación.');
+            },
+        });
+    }
+    
+    
+      
+ 
     addOrUpdateQuery(): void {
         if (this.editingQueryId !== null) {  // Si estamos en modo edición
             this.updateQuery(this.newQuery);  // Actualiza la consulta
@@ -93,23 +135,19 @@ export class ChatQueriesComponent implements OnInit {
     }
 
     deleteQuery(query: ChatQuery): void {
-        if (query.id) {
-            this.chatbotService.deleteQuery(query.id).subscribe({
-                next: () => {
-                    this.queries = this.queries.filter(q => q.id !== query.id); // Elimina de la lista
-                    this.setSuccess('Consulta eliminada exitosamente');
-                },
-                error: () => {
-                    this.setError('Error al eliminar la consulta');
-                },
-            });
+        if (query.id && confirm('¿Estás seguro de que deseas eliminar esta consulta?')) {
+          this.chatbotService.deleteQuery(query.id).subscribe({
+            next: () => {
+              this.queries = this.queries.filter(q => q.id !== query.id);
+              this.setSuccess('Consulta eliminada exitosamente.');
+            },
+            error: () => {
+              this.setError('Error al eliminar la consulta.');
+            },
+          });
         }
-    }
-
-    startEditing(query: ChatQuery): void {
-        this.newQuery = { ...query };  // Carga la consulta en el formulario
-        this.editingQueryId = query.id || null;  // Establece el ID de edición
-    }
+      }
+      
 
     resetForm(): void {
         this.newQuery = { query: '', response: '' };  // Restablece el formulario
@@ -129,33 +167,11 @@ export class ChatQueriesComponent implements OnInit {
         this.errorMessage = null;
     }
 
-    submitQuery(): void {
-        if (this.newQuery.query.trim()) {
-            this.chatbotService.createQuery(this.newQuery).subscribe({
-                next: (data) => {
-                    if (data && !('error' in data)) {
-                        this.queries.push(data);
-                        this.newQuery.query = ''; // Limpiar el campo de entrada
-                        this.setSuccess('Consulta enviada');
-                    } else {
-                        this.setError('Error al enviar la consulta');
-                    }
-                },
-                error: () => {
-                    this.setError('Error al enviar la consulta');
-                },
-            });
-        } else {
-            this.setError('Por favor, ingresa una consulta.');
-        }
-    }
-    
-   // Método para editar una pregunta existente
-  editQuery(query: { query: string }) {
-    this.newQuery.query = query.query;  // Rellenar el campo de entrada con la pregunta a editar
-    // Aquí podrías agregar la lógica para editar el mensaje en tu backend si es necesario
-  } 
-    
+
+
+  
 }
+
+
 
 
