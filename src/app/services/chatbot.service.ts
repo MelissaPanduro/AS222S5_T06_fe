@@ -10,7 +10,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ChatbotService {
-  private apiUrl: string = environment.chatbot_be;
+  private apiUrl = 'https://turbo-journey-g9gg6qgggq9cww6j-8080.app.github.dev/api/chatbot/responses';
+  //private apiUrl: string = environment.chatbot_be;
   constructor(private http: HttpClient) {}
 
   // Crear una nueva consulta
