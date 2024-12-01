@@ -9,7 +9,7 @@ import { ChatQuery } from '../models/chat-query';
   providedIn: 'root'
 })
 export class ChatbotService {
-  //private apiUrl: string = environment.chatbot_be;
+  private apiUrl = 'https://refactored-guacamole-g9gg6qggvq62v9qx-8085.app.github.dev/api/chatbot/responses';
   constructor(private http: HttpClient) {}
 
   // Crear una nueva consulta
