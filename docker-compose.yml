@@ -11,7 +11,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       RAPIDAPI_KEY: ${RAPIDAPI_KEY} 
   front:
-    image: melissapanduro/front_docker
+    image: melissapanduro/front_docker:latest
     ports:
       - "4200:4200"
     environment:
