@@ -4,8 +4,7 @@
 
 export const environment = {
    production: false,
-   //apigpt_fe: 'https://opulent-space-zebra-wp475pr4gr7f99pj-8085.app.github.dev/api'
-   chatbot_be: `${API_BACKEND}`
+   chatbot_be: 'https://turbo-space-chainsaw-976xgg6xr6r37ww.github.dev/api/chatbot/responses'
  };
  
  /*
