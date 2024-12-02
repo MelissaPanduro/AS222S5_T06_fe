@@ -5,6 +5,7 @@ import { ChatbotService } from '../../services/chatbot.service';
 import { ChatQuery } from '../../models/chat-query';
 
 
+
 @Component({
     selector: 'app-chat-queries',
     standalone: true,

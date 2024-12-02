@@ -4,12 +4,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ChatQuery } from '../models/chat-query';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatbotService {
-  private apiUrl = 'https://refactored-guacamole-g9gg6qggvq62v9qx-8085.app.github.dev/api/chatbot/responses';
+  private apiUrl: string = environment.chatbot_be;
   constructor(private http: HttpClient) {}
 
   // Crear una nueva consulta
