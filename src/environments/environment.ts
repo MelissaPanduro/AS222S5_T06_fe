@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-   production: false,
-   chatbot_be: 'https://turbo-space-chainsaw-976xgg6xr6r37ww.github.dev/api/chatbot/responses'
- };
+  production: false,
+  //apigpt_fe: 'https://opulent-space-zebra-wp475pr4gr7f99pj-8085.app.github.dev/api'
+  chatbot_be: "${API_BACKEND}"
+};
  
  /*
   * For easier debugging in development mode, you can import the following file
