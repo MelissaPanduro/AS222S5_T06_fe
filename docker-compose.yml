@@ -16,5 +16,7 @@ services:
     ports:
       - "4200:4200"
     environment:
-      API_BACKEND: ${API_BACKEND}
-      
+      API_BACKEND: https://turbo-space-chainsaw-976xgg6xr6r37ww-8085.app.github.dev/api/chatbot/responses
+
+
+
