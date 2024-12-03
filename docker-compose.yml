@@ -11,7 +11,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       API_KEY: ${API_KEY} 
   front:
-    image: melissapanduro/front_end
+    image: melissapanduro/front_docker
     ports:
       - "4200:4200"
     environment:
