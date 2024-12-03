@@ -13,8 +13,7 @@ import { environment } from '../../environments/environment';
 export class ChatbotService {
   constructor(private http: HttpClient) {}
 
-  private url: string = environment.chatbot_be;
-  contentModeratorSelected: ContentModeratorModel | undefined; 
+  private apiUrl: string = environment.chatbot_be;
 
   // Crear una nueva consulta
   createQuery(query: ChatQuery): Observable<ChatQuery | { error: string }> {
