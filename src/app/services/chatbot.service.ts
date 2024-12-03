@@ -11,10 +11,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ChatbotService {
-  constructor(private http: HttpClient) {}
+
 
   private apiUrl: string = environment.chatbot_be;
-
+  constructor(private http: HttpClient) {}
+  
   // Crear una nueva consulta
   createQuery(query: ChatQuery): Observable<ChatQuery | { error: string }> {
     return this.http.post<ChatQuery>(this.apiUrl, query).pipe(
