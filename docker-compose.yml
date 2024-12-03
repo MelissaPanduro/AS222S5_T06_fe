@@ -14,7 +14,6 @@ services:
     image: melissapanduro/front_docker
     container_name: frontend
     ports:
-      - "4200:4200"
-
-
-
+      - "4200:4200"      
+    environment:
+      API_BACKEND: ${API_BACKEND}

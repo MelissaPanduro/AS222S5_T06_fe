@@ -3,9 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  chatbot_be: 'https://turbo-space-chainsaw-976xgg6xr6r37ww-8085.app.github.dev/api/chatbot/responses'
-  //contentModerator_be: '${API_BACKEND}'
+  chatbot_be: 'http://localhost:8080'
 };
  
  /*
