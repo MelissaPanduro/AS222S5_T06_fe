@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  app1:
+  back:
     image: melissapanduro/chatbot_docker
     ports:
       - "8085:8085"
@@ -9,11 +9,12 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      API_KEY: ${API_KEY}
-  app2:
-    image: melissapanduro/front_docker
-    container_name: frontend
+      API_KEY: ${API_KEY} 
+  front:
+    image: melissapanduro/front_end
     ports:
-      - "4200:4200"      
+      - "4200:4200"
     environment:
       API_BACKEND: ${API_BACKEND}
+    depends_on:
+      - back
