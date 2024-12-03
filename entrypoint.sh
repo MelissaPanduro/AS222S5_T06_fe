@@ -4,3 +4,5 @@ sed -i "s|http://localhost:8080|${API_BACKEND}|g" /app/src/environments/environm
 
 # Iniciar la aplicación
 npm start
+
+
